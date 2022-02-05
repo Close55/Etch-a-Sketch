@@ -1,31 +1,51 @@
 const gridContainer = document.querySelector(".container");
-createGrid(100);
+const resetBtn = document.querySelector(".reset");
+const slider = document.querySelector(".grid-size");
+
+createGrid(16);
+updateSlider();
+
+function createGrid2(size) {}
 
 function createGrid(size) {
-  var rows = [];
-  var cols = [];
-  // Get number of col/rows
-  let x = Math.sqrt(size);
+  gridContainer.setAttribute(
+    "style",
+    `grid-template-columns: repeat(${size}, 1fr);
+    grid-template-rows: repeat(${size}, 1fr);`
+  );
 
-  for (let i = 0; i < x; i++) {
+  for (let i = 0; i < size * size; i++) {
     let newDiv = document.createElement("div");
-    rows.push(newDiv);
-    newDiv.classList.add(`row${i}`);
-    newDiv.setAttribute(
-      "style",
-      "display: flex; flex: 1; flex-direction: column;"
-    );
+    newDiv.addEventListener("mouseenter", () => {
+      newDiv.style.backgroundColor = "black";
+    });
     gridContainer.appendChild(newDiv);
-    for (let j = 0; j < x; j++) {
-      let rowContainer = document.querySelector(`.row${i}`);
-      let newDiv = document.createElement("div");
-      cols.push(newDiv);
-      newDiv.classList.add(`col${j}`);
-      newDiv.setAttribute("style", "display: flex; flex: 1");
-      newDiv.addEventListener("mouseenter", () => {
-        newDiv.style.backgroundColor = "black";
-      });
-      rowContainer.appendChild(newDiv);
-    }
   }
 }
+
+function clearCanvas() {
+  let squares = gridContainer.children;
+  for (let i = 0; i < squares.length; i++) {
+    squares[i].style.backgroundColor = "white";
+  }
+}
+
+function deleteGrid() {
+  while (gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.lastChild);
+  }
+}
+
+function newGridSize(e) {
+  deleteGrid();
+  createGrid(e.target.value);
+}
+
+function updateSlider() {
+  let x = document.querySelector(".grid-size").value;
+  console.log(x);
+  document.querySelector(".slider-value").innerHTML = `${x} x ${x}`;
+}
+
+resetBtn.addEventListener("click", clearCanvas);
+slider.addEventListener("change", newGridSize);

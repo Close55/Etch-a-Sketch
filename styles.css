@@ -1,11 +1,21 @@
 .container {
-  margin: 25px 50px;
+  border: 2px solid black;
+  margin: auto;
+  margin-top: 100px;
+  display: grid;
   width: 500px;
   height: 500px;
-  flex-wrap: wrap;
-  display: flex;
-  flex: 1;
-  justify-content: space-evenly;
-  align-items: space-evenly;
-  border: 2px solid black;
+}
+
+.grid-size {
+  margin: 30px 0 0 550px;
+}
+
+.reset {
+  margin: 30px 0 0 560px;
+  height: 35px;
+  width: 150px;
+  border-radius: 10px;
+  border-style: solid;
+  background-color: #cfe9ff;
 }
